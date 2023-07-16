@@ -33,12 +33,14 @@
 
 <div align="center">
 
-<img src="" width="200">
-<img src="" width="200">
-<img src="" width="200">
-<img src="" width="200">
-<img src="" width="200">
-<img src="" width="200">
+<img src="https://github.com/thiago082882/APP_DragonballZ/assets/93166095/95950904-b398-404c-846e-7ec816f7e674" width="200">
+<img src="https://github.com/thiago082882/APP_DragonballZ/assets/93166095/5792752f-943a-4c0a-ac83-73d98887768f" width="200">
+<img src="https://github.com/thiago082882/APP_DragonballZ/assets/93166095/68a8935e-3adf-444f-b79c-23dabc833351" width="200">
+<img src="https://github.com/thiago082882/APP_DragonballZ/assets/93166095/d8324895-b8f1-487d-99f9-c69a1548ca6f" width="200">
+<img src="https://github.com/thiago082882/APP_DragonballZ/assets/93166095/1ff95258-fe4f-4630-9cae-a4f3130fd6da" width="200">
+<img src="https://github.com/thiago082882/APP_DragonballZ/assets/93166095/d54ffdb4-46bf-48fb-bab5-5b32fe292bf8" width="200">
+<img src="https://github.com/thiago082882/APP_DragonballZ/assets/93166095/686e7d8e-8e60-4f22-bbfe-41f6c638a090" width="200">
+
 
 </div>
 
