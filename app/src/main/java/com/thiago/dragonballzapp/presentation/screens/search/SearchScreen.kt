@@ -7,12 +7,18 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
+import androidx.paging.compose.collectAsLazyPagingItems
+import androidx.room.util.query
+import coil.annotation.ExperimentalCoilApi
+import com.thiago.dragonballzapp.presentation.common.ListContent
 
+@OptIn(ExperimentalCoilApi::class)
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
 fun SearchScreen(navController: NavHostController,searchViewModel: SearchViewModel = hiltViewModel()) {
 
     val searchQuery by searchViewModel.searchQuery
+    val heroes = searchViewModel.searchedHeroes.collectAsLazyPagingItems()
     Scaffold(
         topBar = {
             SearchTopBar(
@@ -20,13 +26,16 @@ fun SearchScreen(navController: NavHostController,searchViewModel: SearchViewMod
                 onTextChange = {
                                searchViewModel.updateSearchQuery(query = it)
                 },
-                onSearchClicked = {},
+                onSearchClicked = {
+                    searchViewModel.searchHeroes(query=it)
+                                  },
                 onCloseClicked ={
                     navController.popBackStack()
                 }
             )
+        },
+        content = {
+            ListContent(heroes = heroes, navController = navController)
         }
-    ) {
-        
-    }
+    )
 }
