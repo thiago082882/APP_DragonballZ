@@ -9,7 +9,7 @@ import com.thiago.dragonballzapp.data.local.dao.HeroRemoteKeysDao
 import com.thiago.dragonballzapp.domain.model.Hero
 import com.thiago.dragonballzapp.domain.model.HeroRemoteKeys
 
-@Database(entities = [Hero::class, HeroRemoteKeys::class], version = 1)
+@Database(entities = [Hero::class, HeroRemoteKeys::class], version = 2)
 @TypeConverters(DatabaseConverter::class)
 abstract class DragonballDatabase : RoomDatabase() {
 

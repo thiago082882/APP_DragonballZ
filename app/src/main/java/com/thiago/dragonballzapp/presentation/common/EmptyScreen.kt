@@ -97,6 +97,7 @@ fun EmptyScreen(error: LoadState.Error? = null, heroes: LazyPagingItems<Hero>? =
         }
     }
 }
+
 fun parseErrorMessage(error: LoadState.Error): String {
     return when (error.error) {
         is SocketTimeoutException -> {
@@ -109,10 +110,4 @@ fun parseErrorMessage(error: LoadState.Error): String {
             "Unknown Error."
         }
     }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun EmptyScreenPreview() {
-    EmptyScreen(error = LoadState.Error(SocketTimeoutException()))
 }
