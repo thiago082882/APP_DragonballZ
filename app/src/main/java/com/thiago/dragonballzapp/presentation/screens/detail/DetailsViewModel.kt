@@ -36,7 +36,7 @@ class DetailsViewModel @Inject constructor(
             }
         }
     }
-
+//palette
     private val _uiEvent = MutableSharedFlow<UiEvent>()
     val uiEvent: SharedFlow<UiEvent> = _uiEvent.asSharedFlow()
 
@@ -55,6 +55,7 @@ class DetailsViewModel @Inject constructor(
 
 }
 
+//Classe de vizualização
 sealed class UiEvent {
     object GenerateColorPalette : UiEvent()
 }

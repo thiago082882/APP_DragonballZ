@@ -20,6 +20,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import coil.annotation.ExperimentalCoilApi
 import coil.compose.rememberAsyncImagePainter
@@ -61,6 +62,7 @@ fun DetailsContent(
         onDarkVibrant = colors["onDarkVibrant"]!!
     }
 
+    //Mudar cor de arra de status
     val systemUiController = rememberSystemUiController()
     systemUiController.setStatusBarColor(
         color = Color(parseColor(darkVibrant))
@@ -72,6 +74,7 @@ fun DetailsContent(
 
     val currentSheetFraction = scaffoldState.currentSheetFraction
 
+    //Animação no bottom sheet
     val radiusAnim by animateDpAsState(
         targetValue = if (currentSheetFraction == 1f) EXTRA_LARGE_PADDING
         else EXPANDED_RADIUS_LEVEL, label = ""
@@ -186,27 +189,34 @@ fun BottomSheetContent(
         Row(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceBetween
+
         ) {
             OrderedList(
+
                 title = stringResource(R.string.family),
                 items = selectedHero.family,
                 textColor = contentColor
             )
+            Spacer(modifier = Modifier.weight(1f)) // Adicione um Spacer para empurrar o próximo elemento para o centro
+
             OrderedList(
+
                 title = stringResource(R.string.abilities),
                 items = selectedHero.abilities,
                 textColor = contentColor
             )
+            Spacer(modifier = Modifier.weight(1f))
             OrderedList(
                 title = stringResource(R.string.nature_types),
                 items = selectedHero.natureTypes,
                 textColor = contentColor
             )
+
         }
+
     }
 }
-
-@ExperimentalCoilApi
+        @ExperimentalCoilApi
 @Composable
 fun BackGroundContent(
     heroImage: String,
