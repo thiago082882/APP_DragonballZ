@@ -23,6 +23,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import coil.annotation.ExperimentalCoilApi
+import coil.compose.AsyncImage
 import coil.compose.rememberAsyncImagePainter
 import coil.compose.rememberImagePainter
 import coil.request.ImageRequest
@@ -64,9 +65,11 @@ fun DetailsContent(
 
     //Mudar cor de arra de status
     val systemUiController = rememberSystemUiController()
-    systemUiController.setStatusBarColor(
-        color = Color(parseColor(darkVibrant))
-    )
+  SideEffect {
+      systemUiController.setStatusBarColor(
+          color = Color(parseColor(darkVibrant))
+      )
+  }
 
     val scaffoldState = rememberBottomSheetScaffoldState(
         bottomSheetState = rememberBottomSheetState(initialValue = BottomSheetValue.Expanded)
@@ -225,24 +228,23 @@ fun BackGroundContent(
     onCloseClicked: () -> Unit
 ) {
     val imageUrl = "$BASE_URL${heroImage}"
-    val painter = rememberAsyncImagePainter(
-        ImageRequest.Builder(LocalContext.current).data(data = imageUrl).apply(block = fun ImageRequest.Builder.() {
-            error(R.drawable.ic_placeholder)
-        }).build()
-    )
-
-
     Box(
         modifier = Modifier
             .fillMaxSize()
             .background(backGroundColor)
     ) {
-        Image(
+        AsyncImage(
             modifier = Modifier
                 .fillMaxWidth()
-                .fillMaxHeight(fraction = imageFraction + MIN_BACKGROUND_IMAGE_HEIGHT)
-                .align(Alignment.TopStart),
-            painter = painter,
+                .fillMaxHeight(
+                    fraction = (imageFraction + MIN_BACKGROUND_IMAGE_HEIGHT)
+                        .coerceAtMost(1.0f)
+                )
+                .align(Alignment.TopCenter),
+            model = ImageRequest.Builder(LocalContext.current)
+                .data(data = imageUrl)
+                .error(drawableResId = R.drawable.ic_placeholder)
+                .build(),
             contentDescription = stringResource(id = R.string.hero_image),
             contentScale = ContentScale.Crop
         )

@@ -32,11 +32,12 @@ import com.thiago.dragonballzapp.ui.theme.Orange700
 fun SplashScreen(
     navController: NavHostController,
     splashViewModel: SplashViewModel = hiltViewModel()
-){
+) {
 
     val onBoardingCompleted by splashViewModel.onBoardingCompleted.collectAsState()
     val degrees = remember {
-        Animatable(0f) }
+        Animatable(0f)
+    }
 
     LaunchedEffect(key1 = true) {
         degrees.animateTo(
@@ -47,46 +48,37 @@ fun SplashScreen(
             )
         )
         navController.popBackStack()
-        if(onBoardingCompleted){
+        if (onBoardingCompleted) {
             navController.navigate(Screen.Home.route)
-        }else{
+        } else {
             navController.navigate(Screen.Welcome.route)
         }
     }
-    Splash(degrees=degrees.value)
+    Splash(degrees = degrees.value)
 }
 
 @Composable
-fun Splash(degrees:Float) {
-    if(isSystemInDarkTheme()){
-
-        Box(modifier = Modifier
-            .background(Color.Black)
-            .fillMaxSize(),
-            contentAlignment = Alignment.Center
-        ) {
-            Image(
-                modifier =Modifier.rotate(degrees = degrees),
-                painter = painterResource(id = R.drawable.logo) ,
-                contentDescription = stringResource(R.string.app_logo)
-            )
-        }
-
-    }else{
-
-        Box(modifier = Modifier
-            .background(Brush.verticalGradient(listOf(Orange700, Orange500)))
-            .fillMaxSize(),
-            contentAlignment = Alignment.Center
-        ) {
-            Image(
-                modifier =Modifier.rotate(degrees = degrees),
-                painter = painterResource(id = R.drawable.logo) ,
-                contentDescription = stringResource(R.string.app_logo)
-            )
-        }
-
+fun Splash(degrees: Float) {
+    val modifier = if (isSystemInDarkTheme()) {
+        Modifier.background(Color.Black)
+    } else {
+        Modifier.background(
+            Brush.verticalGradient(listOf(Orange700, Orange500))
+        )
     }
+        Box(
+            modifier = modifier
+                .fillMaxSize(),
+            contentAlignment = Alignment.Center
+        ) {
+            Image(
+                modifier = Modifier.rotate(degrees = degrees),
+                painter = painterResource(id = R.drawable.logo),
+                contentDescription = stringResource(R.string.app_logo)
+            )
+        }
+
+
 
 }
 
@@ -96,7 +88,7 @@ fun SplashScreenPreview() {
     Splash(degrees = 0f)
 }
 
-@Preview(uiMode=UI_MODE_NIGHT_YES)
+@Preview(uiMode = UI_MODE_NIGHT_YES)
 @Composable
 fun SplashScreenDarkPreview() {
     Splash(degrees = 0f)

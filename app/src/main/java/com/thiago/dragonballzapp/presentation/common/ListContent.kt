@@ -38,6 +38,7 @@ import androidx.paging.LoadState
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.items
 import coil.annotation.ExperimentalCoilApi
+import coil.compose.AsyncImage
 import coil.compose.rememberAsyncImagePainter
 import coil.request.ImageRequest
 import com.thiago.dragonballzapp.R
@@ -119,13 +120,7 @@ fun HeroItem(
     hero: Hero,
     navController: NavHostController
 ) {
-    val painter = rememberAsyncImagePainter(
-        ImageRequest.Builder(LocalContext.current).data(data = "$BASE_URL${hero.image}")
-            .apply(block = fun ImageRequest.Builder.() {
-                placeholder(R.drawable.ic_placeholder)
-                error(R.drawable.ic_placeholder)
-            }).build()
-    )
+
     Box(
         modifier = Modifier
             .height(HERO_ITEM_HEIGHT)
@@ -135,10 +130,15 @@ fun HeroItem(
         contentAlignment = Alignment.BottomStart
     ) {
         Surface(shape = RoundedCornerShape(size = LARGE_PADDING)) {
-            Image(
+
+            AsyncImage(
                 modifier = Modifier.fillMaxSize(),
-                painter = painter,
-                contentDescription = stringResource(R.string.hero_image),
+                model = ImageRequest.Builder(LocalContext.current)
+                    .data(data = "$BASE_URL${hero.image}")
+                    .placeholder(drawableResId = R.drawable.ic_placeholder)
+                    .error(drawableResId = R.drawable.ic_placeholder)
+                    .build()
+                , contentDescription = stringResource(id = R.string.hero_image),
                 contentScale = ContentScale.Crop
             )
 

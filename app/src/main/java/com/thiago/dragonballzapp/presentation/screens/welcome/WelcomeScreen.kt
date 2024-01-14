@@ -4,7 +4,12 @@ import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.MaterialTheme
@@ -20,7 +25,11 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
-import com.google.accompanist.pager.*
+import com.google.accompanist.pager.ExperimentalPagerApi
+import com.google.accompanist.pager.HorizontalPager
+import com.google.accompanist.pager.HorizontalPagerIndicator
+import com.google.accompanist.pager.PagerState
+import com.google.accompanist.pager.rememberPagerState
 import com.thiago.dragonballzapp.R
 import com.thiago.dragonballzapp.domain.model.OnBoardingPage
 import com.thiago.dragonballzapp.navigation.Screen
@@ -29,11 +38,11 @@ import com.thiago.dragonballzapp.ui.theme.PAGING_INDICATOR_SPACING
 import com.thiago.dragonballzapp.ui.theme.PAGING_INDICATOR_WIDTH
 import com.thiago.dragonballzapp.ui.theme.SMALL_PADDING
 import com.thiago.dragonballzapp.ui.theme.activeIndicatorColor
-import com.thiago.dragonballzapp.ui.theme.buttonBgColor
+import com.thiago.dragonballzapp.ui.theme.buttonBackgroundColor
 import com.thiago.dragonballzapp.ui.theme.descriptionColor
 import com.thiago.dragonballzapp.ui.theme.inactiveIndicatorColor
 import com.thiago.dragonballzapp.ui.theme.titleColor
-import com.thiago.dragonballzapp.ui.theme.welcomeScreenBgColor
+import com.thiago.dragonballzapp.ui.theme.welcomeScreenBackgroundColor
 import com.thiago.dragonballzapp.util.Constants.LAST_ON_BOARDING_PAGE
 import com.thiago.dragonballzapp.util.Constants.ON_BOARDING_PAGE_COUNT
 
@@ -56,7 +65,7 @@ fun WelcomeScreen(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(MaterialTheme.colors.welcomeScreenBgColor)
+            .background(color = MaterialTheme.colors.welcomeScreenBackgroundColor)
     ) {
         HorizontalPager(
             modifier = Modifier.weight(10f),
@@ -138,7 +147,7 @@ fun FinishButton(
         ) {
             Button(
                 onClick = onClick, colors = ButtonDefaults.buttonColors(
-                    backgroundColor = MaterialTheme.colors.buttonBgColor,
+                    backgroundColor = MaterialTheme.colors.buttonBackgroundColor,
                     contentColor = Color.White
                 )
             ) {

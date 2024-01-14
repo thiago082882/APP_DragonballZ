@@ -12,7 +12,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.thiago.dragonballzapp.R
-import com.thiago.dragonballzapp.ui.theme.topAppBarBgColor
+import com.thiago.dragonballzapp.ui.theme.topAppBarBackgroundColor
 import com.thiago.dragonballzapp.ui.theme.topAppBarContentColor
 
 
@@ -25,7 +25,7 @@ fun HomeTopBar(onSearchClicked: () -> Unit) {
                 color = MaterialTheme.colors.topAppBarContentColor
             )
         },
-        backgroundColor = MaterialTheme.colors.topAppBarBgColor,
+        backgroundColor = MaterialTheme.colors.topAppBarBackgroundColor,
         actions = {
             IconButton(onClick = onSearchClicked) {
 

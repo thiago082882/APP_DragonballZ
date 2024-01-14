@@ -28,7 +28,7 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.tooling.preview.Preview
 import com.thiago.dragonballzapp.R
 import com.thiago.dragonballzapp.ui.theme.TOP_APP_BAR_HEIGHT
-import com.thiago.dragonballzapp.ui.theme.topAppBarBgColor
+import com.thiago.dragonballzapp.ui.theme.topAppBarBackgroundColor
 import com.thiago.dragonballzapp.ui.theme.topAppBarContentColor
 
 @Composable
@@ -38,7 +38,12 @@ fun SearchTopBar(
     onSearchClicked: (String) -> Unit,
     onCloseClicked: () -> Unit
 ) {
- SearchWidget(text = text, onTextChange = onTextChange, onSearchClicked =onSearchClicked,onCloseClicked=onCloseClicked )
+    SearchWidget(
+        text = text,
+        onTextChange = onTextChange,
+        onSearchClicked = onSearchClicked,
+        onCloseClicked = onCloseClicked
+    )
 }
 
 @Composable
@@ -53,10 +58,10 @@ fun SearchWidget(
             .fillMaxWidth()
             .height(TOP_APP_BAR_HEIGHT)
             .semantics {
-                      contentDescription = "SearchWidget"
+                contentDescription = "SearchWidget"
             },
         elevation = AppBarDefaults.TopAppBarElevation,
-        color = MaterialTheme.colors.topAppBarBgColor
+        color = MaterialTheme.colors.topAppBarBackgroundColor
     ) {
 
         TextField(modifier = Modifier
@@ -87,7 +92,7 @@ fun SearchWidget(
                 ) {
 
                     Icon(
-                        imageVector = Icons.Default.Search ,
+                        imageVector = Icons.Default.Search,
                         contentDescription = stringResource(R.string.search_icon),
                         tint = MaterialTheme.colors.topAppBarContentColor
                     )
@@ -97,21 +102,21 @@ fun SearchWidget(
             trailingIcon = {
 
                 IconButton(
-                    modifier=Modifier
+                    modifier = Modifier
                         .semantics {
                             contentDescription = "CloseButton"
                         },
                     onClick = {
-                        if(text.isNotEmpty()){
+                        if (text.isNotEmpty()) {
                             onTextChange("")
-                        }else{
+                        } else {
                             onCloseClicked()
                         }
                     }
                 ) {
 
                     Icon(
-                        imageVector = Icons.Default.Close ,
+                        imageVector = Icons.Default.Close,
                         contentDescription = stringResource(R.string.close_icon),
                         tint = MaterialTheme.colors.topAppBarContentColor
                     )
@@ -119,19 +124,19 @@ fun SearchWidget(
                 }
             },
             keyboardOptions = KeyboardOptions(
-                imeAction= ImeAction.Search
+                imeAction = ImeAction.Search
             ),
-            keyboardActions= KeyboardActions(
-               onSearch = {
-                   onSearchClicked(text)
-               }
+            keyboardActions = KeyboardActions(
+                onSearch = {
+                    onSearchClicked(text)
+                }
             ),
 
-          colors= TextFieldDefaults.textFieldColors(
-              backgroundColor = Color.Transparent,
-              cursorColor = MaterialTheme.colors.topAppBarContentColor
+            colors = TextFieldDefaults.textFieldColors(
+                backgroundColor = Color.Transparent,
+                cursorColor = MaterialTheme.colors.topAppBarContentColor
 
-          )
+            )
 
         )
     }
@@ -140,5 +145,5 @@ fun SearchWidget(
 @Preview
 @Composable
 fun SearchWidgetPreview() {
-    SearchWidget(text = "" , onTextChange ={} , onSearchClicked = {}, onCloseClicked = {})
+    SearchWidget(text = "", onTextChange = {}, onSearchClicked = {}, onCloseClicked = {})
 }

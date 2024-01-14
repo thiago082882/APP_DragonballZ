@@ -17,7 +17,7 @@ import java.util.Locale
 import javax.inject.Inject
 
 @ExperimentalPagingApi
-class HeroRemoteMediator @Inject constructor(
+class HeroRemoteMediator(
     private val dragonballApi: DragonballApi,
     private val dragonballDatabase: DragonballDatabase
 ) : RemoteMediator<Int,Hero>() {

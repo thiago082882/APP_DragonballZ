@@ -6,6 +6,7 @@ import androidx.compose.runtime.remember
 import androidx.paging.LoadState
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -27,9 +28,11 @@ import com.google.accompanist.swiperefresh.SwipeRefresh
 import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 import com.thiago.dragonballzapp.R
 import com.thiago.dragonballzapp.domain.model.Hero
+import com.thiago.dragonballzapp.ui.theme.DarkGray
+import com.thiago.dragonballzapp.ui.theme.LightGray
 import com.thiago.dragonballzapp.ui.theme.NETWORK_ERROR_ICON_HEIGHT
 import com.thiago.dragonballzapp.ui.theme.SMALL_PADDING
-import com.thiago.dragonballzapp.ui.theme.emptyScreenContentColor
+
 import java.net.ConnectException
 import java.net.SocketTimeoutException
 
@@ -82,14 +85,14 @@ fun EmptyScreen(error: LoadState.Error? = null, heroes: LazyPagingItems<Hero>? =
                     .alpha(alpha = alphaAnim),
                 painter = painterResource(id = icon),
                 contentDescription = stringResource(R.string.network_error_icon),
-                tint = MaterialTheme.colors.emptyScreenContentColor
+                tint = if (isSystemInDarkTheme()) LightGray else DarkGray
             )
             Text(
                 modifier = Modifier
                     .padding(top = SMALL_PADDING)
                     .alpha(alpha = alphaAnim),
                 text = message,
-                color = MaterialTheme.colors.emptyScreenContentColor,
+                color = if (isSystemInDarkTheme()) LightGray else DarkGray,
                 textAlign = TextAlign.Center,
                 fontWeight = FontWeight.Medium,
                 fontSize = MaterialTheme.typography.subtitle1.fontSize

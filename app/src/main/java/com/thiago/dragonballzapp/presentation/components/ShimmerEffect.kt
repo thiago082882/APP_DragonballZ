@@ -39,7 +39,7 @@ import com.thiago.dragonballzapp.ui.theme.SMALL_PADDING
 import com.thiago.dragonballzapp.ui.theme.ShimmerDarkGray
 import com.thiago.dragonballzapp.ui.theme.ShimmerLightGray
 import com.thiago.dragonballzapp.ui.theme.ShimmerMediumGray
-import com.thiago.dragonballzapp.ui.theme.shimmerItemContentColor
+
 
 
 @Composable
@@ -113,7 +113,8 @@ fun ShimmerItem(alpha: Float) {
                         modifier = Modifier
                             .size(RATING_PLACEHOLDER_HEIGHT)
                             .alpha(alpha = alpha),
-                        color = MaterialTheme.colors.shimmerItemContentColor,
+                        color = if (isSystemInDarkTheme())
+                            ShimmerDarkGray else ShimmerMediumGray,
                         shape = RoundedCornerShape(size = SMALL_PADDING)
                     ) {}
                     Spacer(modifier = Modifier.padding(all = SMALL_PADDING))

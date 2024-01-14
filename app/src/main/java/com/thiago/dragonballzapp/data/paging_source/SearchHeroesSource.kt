@@ -6,7 +6,7 @@ import com.thiago.dragonballzapp.data.remote.DragonballApi
 import com.thiago.dragonballzapp.domain.model.Hero
 import javax.inject.Inject
 
-class SearchHeroesSource @Inject constructor(
+class SearchHeroesSource (
     private val dragonballApi: DragonballApi,
     private val query: String
 ) : PagingSource<Int, Hero>() {
