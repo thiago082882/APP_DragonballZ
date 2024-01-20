@@ -1,8 +1,9 @@
 package com.thiago.dragonballzapp.ui.theme
 
-
-import androidx.compose.material.Colors
+import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
+import androidx.compose.material.Colors
 
 val Purple200 = Color(0xFFBB86FC)
 val Purple500 = Color(0xFF6200EE)
@@ -24,30 +25,48 @@ val Pink40 = Color(0xFF7D5260)
 val Orange700 = Color(0xFFC9380B)
 val Orange500 = Color(0xFFF87C55)
 
-val Colors.statusBarColor
-    get() = if (isLight) Purple700 else Color.Black
+@Composable
+fun isLight(): Boolean {
+    return !isSystemInDarkTheme()
+}
 
-val Colors.welcomeScreenBackgroundColor
-    get() = if (isLight) Color.White else Color.Black
+val Colors.statusBarColor: Color
+    @Composable
+    get() = if (isLight()) Purple700 else Color.Black
+val Colors.homeScreenBackgroundColor: Color
+    @Composable
+    get() = if (isLight()) Color.White else DarkGray
 
-val Colors.titleColor
-    get() = if (isLight) DarkGray else LightGray
+val Colors.welcomeScreenBackgroundColor: Color
+    @Composable
+    get() = if (isLight()) Color.White else Color.Black
 
-val Colors.descriptionColor
-    get() = if (isLight) DarkGray.copy(alpha = 0.5f)
-    else LightGray.copy(alpha = 0.5f)
+val Colors.titleColor: Color
+    @Composable
+    get() = if (isLight()) DarkGray else LightGray
 
-val Colors.activeIndicatorColor
-    get() = if (isLight) Purple500 else Purple700
+val Colors.descriptionColor: Color
+    @Composable
+    get() = if (isLight()) DarkGray.copy(alpha = 0.5f) else LightGray.copy(alpha = 0.5f)
 
-val Colors.inactiveIndicatorColor
-    get() = if (isLight) LightGray else DarkGray
+val Colors.activeIndicatorColor: Color
+    @Composable
+    get() = if (isLight()) Purple500 else Purple700
 
-val Colors.buttonBackgroundColor
-    get() = if (isLight) Purple500 else Purple700
+val Colors.inactiveIndicatorColor: Color
+    @Composable
+    get() = if (isLight()) LightGray else DarkGray
+
+val Colors.buttonBackgroundColor: Color
+    @Composable
+    get() = if (isLight()) Purple500 else Purple700
 
 val Colors.topAppBarContentColor: Color
-    get() = if (isLight) Color.White else LightGray
+    @Composable
+    get() = if (isLight()) Color.White else LightGray
 
 val Colors.topAppBarBackgroundColor: Color
-    get() = if (isLight) Purple500 else Color.Black
+    @Composable
+    get() = if (isLight()) Purple500 else DarkGray
+
+

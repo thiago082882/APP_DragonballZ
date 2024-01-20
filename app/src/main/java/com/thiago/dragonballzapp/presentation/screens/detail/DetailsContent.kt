@@ -1,8 +1,8 @@
 package com.thiago.dragonballzapp.presentation.screens.detail
 
+import android.app.Activity
 import android.graphics.Color.parseColor
 import androidx.compose.animation.core.animateDpAsState
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -14,20 +14,17 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import coil.annotation.ExperimentalCoilApi
 import coil.compose.AsyncImage
-import coil.compose.rememberAsyncImagePainter
-import coil.compose.rememberImagePainter
 import coil.request.ImageRequest
-import com.google.accompanist.systemuicontroller.rememberSystemUiController
+
 import com.thiago.dragonballzapp.R
 import com.thiago.dragonballzapp.domain.model.Hero
 import com.thiago.dragonballzapp.presentation.components.InfoBox
@@ -53,6 +50,8 @@ fun DetailsContent(
     selectedHero: Hero?,
     colors: Map<String, String>
 ) {
+    val activity = LocalContext.current as Activity
+
     var vibrant by remember { mutableStateOf("#000000") }
     var darkVibrant by remember { mutableStateOf("#000000") }
     var onDarkVibrant by remember { mutableStateOf("#ffffff") }
@@ -63,13 +62,10 @@ fun DetailsContent(
         onDarkVibrant = colors["onDarkVibrant"]!!
     }
 
-    //Mudar cor de arra de status
-    val systemUiController = rememberSystemUiController()
-  SideEffect {
-      systemUiController.setStatusBarColor(
-          color = Color(parseColor(darkVibrant))
-      )
-  }
+    SideEffect {
+        activity.window.statusBarColor =  Color(parseColor(darkVibrant)).toArgb()
+
+    }
 
     val scaffoldState = rememberBottomSheetScaffoldState(
         bottomSheetState = rememberBottomSheetState(initialValue = BottomSheetValue.Expanded)
@@ -219,7 +215,8 @@ fun BottomSheetContent(
 
     }
 }
-        @ExperimentalCoilApi
+
+@ExperimentalCoilApi
 @Composable
 fun BackGroundContent(
     heroImage: String,
@@ -270,7 +267,7 @@ fun BackGroundContent(
 @ExperimentalMaterialApi
 val BottomSheetScaffoldState.currentSheetFraction: Float
     get() {
-        val fraction = bottomSheetState.progress.fraction
+        val fraction = bottomSheetState.progress
         val targetValue = bottomSheetState.targetValue
         val currentValue = bottomSheetState.currentValue
 

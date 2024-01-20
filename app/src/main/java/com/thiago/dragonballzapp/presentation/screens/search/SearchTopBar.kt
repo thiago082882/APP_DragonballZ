@@ -1,5 +1,6 @@
 package com.thiago.dragonballzapp.presentation.screens.search
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.text.KeyboardActions
@@ -88,15 +89,15 @@ fun SearchWidget(
                 IconButton(
                     modifier = Modifier
                         .alpha(alpha = ContentAlpha.medium),
+
+
                     onClick = {}
                 ) {
-
                     Icon(
                         imageVector = Icons.Default.Search,
                         contentDescription = stringResource(R.string.search_icon),
-                        tint = MaterialTheme.colors.topAppBarContentColor
+                        tint = MaterialTheme.colors.topAppBarContentColor,
                     )
-
                 }
             },
             trailingIcon = {

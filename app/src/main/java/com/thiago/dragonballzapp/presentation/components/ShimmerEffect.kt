@@ -27,7 +27,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
-import com.google.accompanist.pager.rememberPagerState
 import com.thiago.dragonballzapp.ui.theme.ABOUT_PLACEHOLDER_HEIGHT
 import com.thiago.dragonballzapp.ui.theme.EXTRA_SMALL_PADDING
 import com.thiago.dragonballzapp.ui.theme.HERO_ITEM_HEIGHT

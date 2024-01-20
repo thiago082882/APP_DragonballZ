@@ -1,15 +1,26 @@
 package com.thiago.dragonballzapp.presentation.screens.welcome
 
+
+import com.thiago.dragonballzapp.R
+import com.thiago.dragonballzapp.domain.model.OnBoardingPage
+import com.thiago.dragonballzapp.navigation.Screen
+import com.thiago.dragonballzapp.presentation.components.HorizontalPagerIndicator
+import com.thiago.dragonballzapp.ui.theme.PAGING_INDICATOR_SPACING
+import com.thiago.dragonballzapp.ui.theme.PAGING_INDICATOR_WIDTH
+import com.thiago.dragonballzapp.ui.theme.activeIndicatorColor
+import com.thiago.dragonballzapp.ui.theme.inactiveIndicatorColor
+import com.thiago.dragonballzapp.ui.theme.welcomeScreenBackgroundColor
+import com.thiago.dragonballzapp.util.Constants.ON_BOARDING_PAGE_COUNT
+
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.ExperimentalAnimationApi
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.pager.HorizontalPager
+import androidx.compose.foundation.pager.PagerState
+import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.MaterialTheme
@@ -25,30 +36,16 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
-import com.google.accompanist.pager.ExperimentalPagerApi
-import com.google.accompanist.pager.HorizontalPager
-import com.google.accompanist.pager.HorizontalPagerIndicator
-import com.google.accompanist.pager.PagerState
-import com.google.accompanist.pager.rememberPagerState
-import com.thiago.dragonballzapp.R
-import com.thiago.dragonballzapp.domain.model.OnBoardingPage
-import com.thiago.dragonballzapp.navigation.Screen
 import com.thiago.dragonballzapp.ui.theme.EXTRA_LARGE_PADDING
-import com.thiago.dragonballzapp.ui.theme.PAGING_INDICATOR_SPACING
-import com.thiago.dragonballzapp.ui.theme.PAGING_INDICATOR_WIDTH
 import com.thiago.dragonballzapp.ui.theme.SMALL_PADDING
-import com.thiago.dragonballzapp.ui.theme.activeIndicatorColor
 import com.thiago.dragonballzapp.ui.theme.buttonBackgroundColor
 import com.thiago.dragonballzapp.ui.theme.descriptionColor
-import com.thiago.dragonballzapp.ui.theme.inactiveIndicatorColor
 import com.thiago.dragonballzapp.ui.theme.titleColor
-import com.thiago.dragonballzapp.ui.theme.welcomeScreenBackgroundColor
 import com.thiago.dragonballzapp.util.Constants.LAST_ON_BOARDING_PAGE
-import com.thiago.dragonballzapp.util.Constants.ON_BOARDING_PAGE_COUNT
 
 
+@OptIn(ExperimentalFoundationApi::class)
 @ExperimentalAnimationApi
-@ExperimentalPagerApi
 @Composable
 fun WelcomeScreen(
     navController: NavHostController,
@@ -60,7 +57,7 @@ fun WelcomeScreen(
         OnBoardingPage.Third
     )
 
-    val pagerState = rememberPagerState()
+    val pagerState = rememberPagerState(pageCount = { ON_BOARDING_PAGE_COUNT })
 
     Column(
         modifier = Modifier
@@ -69,7 +66,6 @@ fun WelcomeScreen(
     ) {
         HorizontalPager(
             modifier = Modifier.weight(10f),
-            count = ON_BOARDING_PAGE_COUNT,
             state = pagerState,
             verticalAlignment = Alignment.Top
         ) { position ->
@@ -80,12 +76,16 @@ fun WelcomeScreen(
                 .weight(1f)
                 .align(Alignment.CenterHorizontally),
             pagerState = pagerState,
+            pageCount = pagerState.pageCount,
             activeColor = MaterialTheme.colors.activeIndicatorColor,
             inactiveColor = MaterialTheme.colors.inactiveIndicatorColor,
             indicatorWidth = PAGING_INDICATOR_WIDTH,
             spacing = PAGING_INDICATOR_SPACING
         )
-        FinishButton(modifier = Modifier.weight(1f), pagerState = pagerState) {
+        FinishButton(
+            modifier = Modifier.weight(1f),
+            pagerState = pagerState
+        ) {
             navController.popBackStack()
             navController.navigate(Screen.Home.route)
             welcomeViewModel.saveOnBoardingState(completed = true)
@@ -96,19 +96,24 @@ fun WelcomeScreen(
 @Composable
 fun PagerScreen(onBoardingPage: OnBoardingPage) {
     Column(
-        modifier = Modifier.fillMaxWidth(),
+        modifier = Modifier
+            .fillMaxWidth(),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Top
     ) {
         Image(
+            modifier = Modifier
+                .fillMaxWidth(0.5f)
+                .fillMaxHeight(0.7f),
             painter = painterResource(id = onBoardingPage.image),
-            contentDescription = stringResource(R.string.on_boarding_image)
+            contentDescription = stringResource(R.string.on_boarding_image),
+
+
         )
         Text(
-            text = onBoardingPage.title,
             modifier = Modifier
-                .fillMaxWidth()
-                .padding(top = EXTRA_LARGE_PADDING),
+                .fillMaxWidth(),
+            text = onBoardingPage.title,
             color = MaterialTheme.colors.titleColor,
             fontSize = MaterialTheme.typography.h4.fontSize,
             fontWeight = FontWeight.Bold,
@@ -128,16 +133,17 @@ fun PagerScreen(onBoardingPage: OnBoardingPage) {
     }
 }
 
+@OptIn(ExperimentalFoundationApi::class)
 @ExperimentalAnimationApi
-@ExperimentalPagerApi
 @Composable
 fun FinishButton(
-    modifier: Modifier = Modifier,
+    modifier: Modifier,
     pagerState: PagerState,
     onClick: () -> Unit
 ) {
     Row(
-        modifier = modifier.padding(horizontal = EXTRA_LARGE_PADDING),
+        modifier = modifier
+            .padding(horizontal = EXTRA_LARGE_PADDING),
         verticalAlignment = Alignment.Top,
         horizontalArrangement = Arrangement.Center
     ) {
@@ -146,7 +152,8 @@ fun FinishButton(
             visible = pagerState.currentPage == LAST_ON_BOARDING_PAGE
         ) {
             Button(
-                onClick = onClick, colors = ButtonDefaults.buttonColors(
+                onClick = onClick,
+                colors = ButtonDefaults.buttonColors(
                     backgroundColor = MaterialTheme.colors.buttonBackgroundColor,
                     contentColor = Color.White
                 )
@@ -157,38 +164,26 @@ fun FinishButton(
     }
 }
 
-@Preview(showBackground = true)
 @Composable
+@Preview(showBackground = true)
 fun FirstOnBoardingScreenPreview() {
-    
     Column(modifier = Modifier.fillMaxSize()) {
         PagerScreen(onBoardingPage = OnBoardingPage.First)
-        
     }
-
-
 }
 
-@Preview(showBackground = true)
 @Composable
+@Preview(showBackground = true)
 fun SecondOnBoardingScreenPreview() {
-
     Column(modifier = Modifier.fillMaxSize()) {
         PagerScreen(onBoardingPage = OnBoardingPage.Second)
-
     }
-
-
 }
 
-@Preview(showBackground = true)
 @Composable
+@Preview(showBackground = true)
 fun ThirdOnBoardingScreenPreview() {
-
     Column(modifier = Modifier.fillMaxSize()) {
         PagerScreen(onBoardingPage = OnBoardingPage.Third)
-
     }
-
-
 }
